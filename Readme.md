@@ -1,3 +1,145 @@
+# SRBK_Print  
+## Introduction  
+A simple terminal program for simulating Galgame dialogue output, featuring character-by-character display, dialogue skipping, auto-mode, and other functions.  
+
+## Features  
+- **Character-by-character Output**: Displays dialogues character by character  
+- **Dialogue Skipping**: Press Spacebar, Enter, or Left Mouse Button to skip character-by-character display and show full text immediately  
+- **Auto-mode**: Press 'A' or F6 to toggle auto-mode. In this mode, the program waits 2 seconds, shows a progress bar, then automatically displays the next dialogue  
+- **Special Tag Processing**: Handles special tags (`<br>` and `<sr>`) in dialogues for line breaks and paragraph segmentation  
+
+## Usage  
+**Coding**: Write code in the `main()` function of `main.cpp` using this format:  
+```cpp  
+SRBK_Print(string Name, string words, string how);  
+```  
+*Parameters*:  
+
+1. string Name  
+   - Character name. Use "NO_NAME" for nameless dialogues (will be replaced with empty line). This field cannot be empty.  
+   - Example:  
+     ```  
+     "GYM"  
+     ```  
+
+2. string words  
+   - Dialogue content. This field cannot be empty.  
+   - Example:  
+     ```  
+     "TESTMESSAGE"  
+     ```  
+
+3. string how  
+   - Format specifier:  
+     - "said": Wraps text with `「」`  
+     - "allsaid": Wraps text with `『』`  
+     - Other values: No brackets for inner thoughts  
+   - Example:  
+     ```  
+     "said", "allsaid", ""  
+     ```  
+
+*Special Tags*:  
+1. `<br>`  
+   - Inserts a line break in output  
+2. `<sr>`  
+   - Creates a new dialogue segment  
+
+*Examples*:  
+- Code:  
+  ```cpp  
+  SRBK_Print("GYM", "Hello, world!", "said");  
+  ```  
+  Output:  
+  ```  
+  【GYM】  
+  「Hello, world!」  
+  ```  
+- Code:  
+  ```cpp  
+  SRBK_Print("NO_NAME", "Hello, world!", "none");  
+  ```  
+  Output:  
+  ```  
+    
+   Hello, world!  
+  ```  
+- Code:  
+  ```cpp  
+  SRBK_Print("GYM", "Hello,<br>world!", "allsaid");  
+  ```  
+  Output:  
+  ```  
+  【GYM】  
+  『Hello,  
+   world!』  
+  ```  
+- Code:  
+  ```cpp  
+  SRBK_Print("GYM", "Hello,<sr>world!", "said");  
+  ```  
+  Output:  
+  ```  
+  【GYM】  
+  「Hello,」  
+  「world!」  
+  ```  
+
+**Compilation**:  
+*Environment Requirements*  
+- **Windows-only** program. Tested on:  
+  ```  
+  Microsoft Windows 11 Pro  
+  Version 21H2 (OS Build 22000.2538)  
+  ```  
+- Requires GCC compiler. Tested with:  
+  ```  
+  g++.exe (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 7.3.0  
+  ```  
+
+*Compilation Command*:  
+```  
+g++ main.cpp -o main.exe -I ./src  
+```  
+
+**Execution**:  
+*Run Program*:  
+```  
+./main.exe  
+```  
+
+*Controls*:  
+- Press Spacebar/Enter/Left Mouse Button to skip text or proceed  
+- Press 'A'/F6 to toggle auto-mode  
+- Hold Ctrl for fast-forward  
+
+## Notes  
+- **Windows-only**: Uses Windows API for key detection  
+- **Never remove** this line from `main()`:  
+  ```cpp  
+  system("chcp 65001");  
+  ```  
+  Prevents text encoding issues.  
+
+## Contribution  
+We warmly welcome contributions!  
+
+As a junior high school student (...), this is my first open-source project. Any help with improving the code would be immensely appreciated!  
+
+Please follow these steps:  
+1. Fork the repository  
+2. Create a branch (`git checkout -b feature-branch`)  
+3. Commit changes (`git commit -am 'Add new feature'`)  
+4. Push to branch (`git push origin feature-branch`)  
+5. Create a Pull Request  
+
+## License  
+2-Clause BSD License. See LICENSE file for details.  
+
+## Closing  
+This is my first GitHub project! Thank you for reading!
+
+
 # SRBK_Print
 ## 简介
 这是一个简单的终端程序，用于模拟Galgame对话输出，拥有逐字输出对话，跳过对话，自动对话等功能
@@ -156,3 +298,5 @@ g++ main.cpp -o main.exe -I ./src
 
 ## 结语
 这是我在Github发布的第一个项目！十分感谢能看到这里！
+
+将以上内容翻译成英语，仅进行本土化翻译！不改变任何内容
