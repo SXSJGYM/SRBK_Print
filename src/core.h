@@ -3,14 +3,19 @@
 #include <thread>
 #include <chrono>
 #include <windows.h>
+#include<conio.h>
 
 #define KEY_DOWN(VK_NONAME) ((GetAsyncKeyState(VK_NONAME) & 0x8000) ? 1:0) 
 using namespace std;
 //定义是否需要自动模式变量
-bool(SRBK_variable_AUTO) = false;
+bool(SRBK_variable_Auto) = false;
+//定义选择编码
+string SRBK_variable_Selectencoding;
+//定义单次选择编码
+string SRBK_variable_Selectencoding_Single;
  
  //定义无等待时间输出函数
-void SRBK_Print_tinykernel(string name, string words, string how) {
+void SRBK_Print_Tinykernel(string name, string words, string how) {
     system("cls");
     if (name != "NO_NAME") {
         cout << "【" << name << "】" << '\n';
@@ -59,7 +64,7 @@ void SRBK_Print(string name, string words, string how) {
     system("cls");
     // 如果玩家按下了Ctrl键，那么直接跳过对话
     if (KEY_DOWN(VK_CONTROL)) {
-        SRBK_Print_tinykernel(name, words, how);
+        SRBK_Print_Tinykernel(name, words, how);
         this_thread::sleep_for(chrono::milliseconds(22));
         return;
     }
@@ -114,17 +119,17 @@ void SRBK_Print(string name, string words, string how) {
         //如果按下Ctrl，直接调用SRBK_Print_tinykernel函数，达到加速效果
         if (KEY_DOWN(VK_CONTROL)) {
             system("cls");
-            SRBK_Print_tinykernel(name, words, how);
+            SRBK_Print_Tinykernel(name, words, how);
             this_thread::sleep_for(chrono::milliseconds(22));
             system("cls");
             return;
         }
         //如果按下A或F6，将自动对话设置为真,如果再次按下，将自动对话设置为假
         if (KEY_DOWN(0x41) or KEY_DOWN(VK_F6)) {
-            if (SRBK_variable_AUTO) {
-                SRBK_variable_AUTO=false;
+            if (SRBK_variable_Auto) {
+                SRBK_variable_Auto=false;
             }else{
-                SRBK_variable_AUTO=true;
+                SRBK_variable_Auto=true;
             }    
         }
     }
@@ -140,7 +145,7 @@ void SRBK_Print(string name, string words, string how) {
  
 
     //如果SRBK_variable_AUTO为真，那么将自动对话
-    if (SRBK_variable_AUTO)
+    if (SRBK_variable_Auto)
     {   this_thread::sleep_for(chrono::milliseconds(100));
         //进度条预准备
         string SRBK_space_length;
@@ -172,11 +177,11 @@ void SRBK_Print(string name, string words, string how) {
                 break;
             //如果按下A或F6，将自动对话设置为假，跳过自动对话
             }else if (KEY_DOWN(0x41) or KEY_DOWN(VK_F6)) {
-                SRBK_variable_AUTO=false;   
+                SRBK_variable_Auto=false;   
                 break;
             //如果按下Ctrl，直接调用SRBK_Print_tinykernel函数，跳过自动对话
             }else if (KEY_DOWN(VK_CONTROL)) {
-                SRBK_Print_tinykernel(name, words, how);
+                SRBK_Print_Tinykernel(name, words, how);
                 this_thread::sleep_for(chrono::milliseconds(22));
                 break;
             }
@@ -197,17 +202,17 @@ void SRBK_Print(string name, string words, string how) {
             break;
         }
         if (KEY_DOWN(VK_CONTROL)) {
-            SRBK_Print_tinykernel(name, words, how);
+            SRBK_Print_Tinykernel(name, words, how);
             this_thread::sleep_for(chrono::milliseconds(22));
             system("cls");
             break;
         }
         //如果按下A或F6，将自动对话设置为真,如果再次按下，将自动对话设置为假
         if (KEY_DOWN(0x41) or KEY_DOWN(VK_F6)) {
-            if (SRBK_variable_AUTO) {
-                SRBK_variable_AUTO=false;
+            if (SRBK_variable_Auto) {
+                SRBK_variable_Auto=false;
             }else{
-                SRBK_variable_AUTO=true;
+                SRBK_variable_Auto=true;
             }    
             system("cls");
             break;
@@ -220,3 +225,32 @@ void SRBK_Print(string name, string words, string how) {
     
 }
  
+//定义SRBK_Choice函数
+void SRBK_Choice(string lines,string how){
+    system("cls");
+    //以/分割lines字符串并输出
+    string thisline;
+    int thisnumber=0;
+    for (int i = 0; i < lines.size(); i++)
+    {
+        if (lines[i] == '/'){
+            thisnumber++;
+            cout<<' '<<thisnumber<<". "<<thisline<<'\n';
+            thisline="";
+        }else{
+            thisline+=lines[i];
+        }
+    }
+    //捕获玩家输入
+    int choice;
+    cout<<"按下对应数字键选择"<<'\n';
+    while (true){
+        choice=getch()-48;
+        if (choice>0 and choice<=thisnumber)
+        {   
+            SRBK_variable_Selectencoding+=to_string(choice);
+            SRBK_variable_Selectencoding_Single=to_string(choice);
+            break;
+        }
+    }
+}

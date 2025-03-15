@@ -160,3 +160,55 @@ if (words[i] == '<' and words[i+1] == 'b' and words[i+2] == 'r' and words[i+3] =
 差不多了。
 ### 实现方式
 略
+
+## 2025-3-15
+### 起因
+突发奇想，想还原选择肢。
+### 效果
+![图片](data:image/png;base64,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)
+
+可以正确识别出选择编码及单次选择编码。
+### 实现方式
+``` cpp
+//定义选择编码
+string SRBK_variable_Selectencoding;
+//定义单次选择编码
+string SRBK_variable_Selectencoding_Single;
+
+//定义SRBK_Choice函数
+void SRBK_Choice(string lines,string how){
+    system("cls");
+    //以/分割lines字符串并输出
+    string thisline;
+    int thisnumber=0;
+    for (int i = 0; i < lines.size(); i++)
+    {
+        if (lines[i] == '/'){
+            thisnumber++;
+            cout<<' '<<thisnumber<<". "<<thisline<<'\n';
+            thisline="";
+        }else{
+            thisline+=lines[i];
+        }
+    }
+    //捕获玩家输入
+    int choice;
+    cout<<"按下对应数字键选择"<<'\n';
+    while (true){
+        choice=getch()-48;
+        if (choice>0 and choice<=thisnumber)
+        {   
+            SRBK_variable_Selectencoding+=to_string(choice);
+            SRBK_variable_Selectencoding_Single=to_string(choice);
+            break;
+        }
+    }
+}
+```
+
+#### 想法：
+
+做完所有选项后生成一个唯一的`选择编码(SRBK_variable_Selectencoding)`，与每条支线/个人线的一个或多个`线路编码`相比较，判断是否进线。
+
+如果该选择不会影响主线(~~比如吃泡芙还是做雪饼~~),可以在最后的`how`参数中传入某些内容
+,使其不将最新的选择编码更新到`选择编码(SRBK_variable_Selectencoding)`中，只更新到`单次选择编码(SRBK_variable_Selectencoding_Single)`中，达到不影响主线却可以触发某些特殊场景的效果
