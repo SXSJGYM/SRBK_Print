@@ -212,3 +212,18 @@ void SRBK_Choice(string lines,string how){
 
 如果该选择不会影响主线(~~比如吃泡芙还是做雪饼~~),可以在最后的`how`参数中传入某些内容
 ,使其不将最新的选择编码更新到`选择编码(SRBK_variable_Selectencoding)`中，只更新到`单次选择编码(SRBK_variable_Selectencoding_Single)`中，达到不影响主线却可以触发某些特殊场景的效果
+
+## 2022-3-16
+
+### 起因
+完善昨天的想法
+### 结果
+差不多了
+### 实现方式
+``` cpp
+if(how != "notappend"){
+    SRBK_variable_Selectencoding+=to_string(choice);
+}
+```
+
+加了防止追加的参数

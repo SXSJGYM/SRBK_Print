@@ -247,8 +247,9 @@ void SRBK_Choice(string lines,string how){
     while (true){
         choice=getch()-48;
         if (choice>0 and choice<=thisnumber)
-        {   
-            SRBK_variable_Selectencoding+=to_string(choice);
+        {   if(how != "notappend"){
+                SRBK_variable_Selectencoding+=to_string(choice);
+            }
             SRBK_variable_Selectencoding_Single=to_string(choice);
             break;
         }
