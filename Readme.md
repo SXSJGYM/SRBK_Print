@@ -151,7 +151,8 @@ This is my first GitHub project! Thank you for reading!
 - **特殊标记处理**：对话内容中可以包含特殊标记（如`<br>`和`<sr>`），程序会根据这些标记进行换行或分段处理
 
 ## 使用
-**编写**：按如下格式在`main.cpp`的`main()`函数中编写代码：
+### 使用 标准文本输出（SRBK_Print）
+按如下格式在`main.cpp`的`main()`函数中编写代码：
 ``` cpp
 SRBK_Print(string Name,string words,string how);
 ```
@@ -238,6 +239,98 @@ SRBK_Print(string Name,string words,string how);
     「Hello,」
     「world!」
     ```
+
+### 使用 选择支函数（SRBK_Choice）
+按如下格式在`main.cpp`的`main()`函数中编写代码：
+``` cpp
+SRBK_Choice(string lines,string how);
+```
+*各参数含义*：
+
+1. string lines
+   
+    字符串型；选项内容。各选项之间使用`/`分割，每个选项必须以/结尾
+
+    示例：
+    ``` 
+    "去钓鱼/去采集野菜/单独行动/"
+    ```
+2. string how
+   
+    字符串型；选择方式。
+
+    如果为`notappend`则不会为`选择编码(SRBK_variable_Selectencoding)`添加本次选择参数
+
+    如果为`""`则会为`选择编码(SRBK_variable_Selectencoding)`添加本次选择参数
+
+    示例：
+    ```
+    "notappend" ""
+    ```
+
+*全局变量说明：*
+1. 选择编码(SRBK_variable_Selectencoding)
+
+    记录游戏中所有重要选择的历史编码。只有在how参数为空字符串""时，本次选择才会被追加到此编码中。
+2. 单次选择编码(SRBK_variable_Selectencoding_Single)
+    
+    记录本次函数调用中的选择结果。无论how参数是什么值，此变量都会被更新为本次选择的数字。
+
+  您可以在代码中随时调用以上变量，以方便控制剧情走向以及实现其他操作。
+
+*整体示例：*
+
+  代码：
+  ```cpp
+  SRBK_Choice("帮助老人/无视离开/", "");
+  ```
+  显示效果：
+  ```text
+  1. 帮助老人
+  2. 无视离开
+  按下对应数字键选择
+  ```
+  若选择1：
+  ```text
+  选择编码(SRBK_variable_Selectencoding) = "1"
+  单次选择编码(SRBK_variable_Selectencoding_Single) = "1"
+  ```
+
+  代码：
+  ```cpp
+  SRBK_Choice("红茶/咖啡/果汁/", "notappend");
+  ```
+  显示效果：
+  ```text
+   1. 红茶
+   2. 咖啡
+   3. 果汁
+  按下对应数字键选择
+  ```
+  若选择2：
+  ```text
+  选择编码(SRBK_variable_Selectencoding) = "1"  // 保持不变
+  单次选择编码(SRBK_variable_Selectencoding_Single) = "2"
+  ```
+
+  代码：
+  ```cpp
+  // 连续选择示例
+  SRBK_Choice("攻击/防御/", "");
+  SRBK_Choice("追击/撤退/", "");
+  SRBK_Choice("治疗/休息/", "notappend");
+  ```
+  若依次选择1、2、1：
+  ```text
+  选择编码(SRBK_variable_Selectencoding) = "12"
+  单次选择编码(SRBK_variable_Selectencoding_Single) = "1"
+  ```
+*使用场景说明：*
+
+  使用空字符串""：适用于主线剧情的关键选择，这些选择会影响游戏结局和剧情走向
+
+  使用"notappend"：适用于日常对话、服装选择、不影响主线的次要选择等
+
 **编译代码**：
 
 *环境检查*
@@ -270,6 +363,7 @@ g++ main.cpp -o main.exe -I ./src
 - 按下空格键、回车键或鼠标左键可以跳过逐字输出，直接显示完整对话，或开始下一个对话
 - 按下“A”键或F6键可以开启或关闭自动对话模式
 - 按下Ctrl键可以快速播放
+- 显示选择支时，按下数字键1-9可选择对应选项
   
 ## 注意事项
 
@@ -283,7 +377,7 @@ g++ main.cpp -o main.exe -I ./src
  
 我们非常非常欢迎任何贡献！
 
-并且我是一名初三学生...这是我的第一个开源项目，如果有人愿意帮忙改改我的屎山代码，那真是万分感谢！！
+并且我是一名高一学生...这是我的第一个开源项目，如果有人愿意帮忙改改我的屎山代码，那真是万分感谢！！
 
 如果您有任何想法或贡献，麻烦按照以下步骤进行贡献，太谢谢了：
  

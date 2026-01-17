@@ -210,10 +210,9 @@ void SRBK_Choice(string lines,string how){
 
 做完所有选项后生成一个唯一的`选择编码(SRBK_variable_Selectencoding)`，与每条支线/个人线的一个或多个`线路编码`相比较，判断是否进线。
 
-如果该选择不会影响主线(~~比如吃泡芙还是做雪饼~~),可以在最后的`how`参数中传入某些内容
-,使其不将最新的选择编码更新到`选择编码(SRBK_variable_Selectencoding)`中，只更新到`单次选择编码(SRBK_variable_Selectencoding_Single)`中，达到不影响主线却可以触发某些特殊场景的效果
+如果该选择不会影响主线(~~比如吃泡芙还是做雪饼~~),可以在最后的`how`参数中传入某些内容,使其不将最新的选择编码更新到`选择编码(SRBK_variable_Selectencoding)`中，只更新到`单次选择编码(SRBK_variable_Selectencoding_Single)`中，达到不影响主线却可以触发某些特殊场景的效果
 
-## 2022-3-16
+## 2025-3-16
 
 ### 起因
 完善昨天的想法
@@ -227,3 +226,14 @@ if(how != "notappend"){
 ```
 
 加了防止追加的参数
+
+## 2026-1-17
+
+### 起因
+时隔整整一年。。。终于还是重新拾起了这个项目
+
+没什么问题，只是决定重新继续开发这个项目，把之前没有提交的代码传上去，并为其编写Readme。
+### 结果
+优化Readme文件
+### 实现方式
+略，具体见Readme.md
