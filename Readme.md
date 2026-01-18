@@ -1,4 +1,4 @@
-# SRBK_Print  
+# SRBK_Print(English)
 ## Introduction  
 A simple terminal program for simulating Galgame dialogue output, featuring character-by-character display, dialogue skipping, auto-mode, and other functions.  
 
@@ -9,6 +9,7 @@ A simple terminal program for simulating Galgame dialogue output, featuring char
 - **Special Tag Processing**: Handles special tags (`<br>` and `<sr>`) in dialogues for line breaks and paragraph segmentation  
 
 ## Usage  
+### Using Standard Text Output (SRBK_Print)
 **Coding**: Write code in the `main()` function of `main.cpp` using this format:  
 ```cpp  
 SRBK_Print(string Name, string words, string how);  
@@ -85,6 +86,119 @@ SRBK_Print(string Name, string words, string how);
   「world!」  
   ```  
 
+### Using Choice Function (SRBK_Choice)
+
+Write code in the `main()` function of `main.cpp` in the following format:
+
+``` cpp
+SRBK_Choice(string lines, string how);
+```
+*Parameter Meanings:*
+
+1. string lines
+
+    String type; Option content. Separate options with `/`. Each option must end with `/`.
+
+    Example:
+
+    ``` text
+    "Go fishing/Gather wild vegetables/Act alone/"
+    ```
+1. string how
+
+    String type; Selection mode.
+
+    If set to `notappend`, the **Selection Code (SRBK\_variable\_Selectencoding)** will NOT be appended with this selection's parameter.
+
+    If set to `""`, the **Selection Code (SRBK\_variable\_Selectencoding)** WILL be appended with this selection's parameter.
+
+    Example:
+
+    ``` text
+    "notappend" ""
+    ```
+*Global Variable Description:*
+
+1. Selection Code (SRBK\_variable\_Selectencoding)
+
+    Records the historical encoding of all important selections in the game. It is only appended with the current selection's parameter when the `how` parameter is an empty string `""`.
+2. Single Selection Code (SRBK\_variable\_Selectencoding\_Single)
+
+    Records the selection result from this function call. This variable is updated to the chosen number regardless of the `how` parameter's value.
+
+    You can reference these variables in your code at any time to control plot progression and implement other operations.
+
+*Complete Examples:*
+
+Code:
+
+``` cpp
+SRBK_Choice("Help the old man/Ignore and leave/", "");
+```
+
+
+Display Effect:
+
+``` text
+ 1. Help the old man 
+ 2. Ignore and leave 
+ 按下对应数字键选择
+```
+
+If option 1 is selected:
+
+``` text
+ Selection Code (SRBK_variable_Selectencoding) = "1" 
+ Single Selection Code (SRBK_variable_Selectencoding_Single) = "1"
+```
+
+Code:
+
+``` cpp
+SRBK_Choice("Black tea/Coffee/Juice/", "notappend");
+```
+
+Display Effect:
+
+``` text
+ 1. Black tea 
+ 2. Coffee 
+ 3. Juice 
+ 按下对应数字键选择
+```
+
+If option 2 is selected:
+
+``` text
+Selection Code (SRBK_variable_Selectencoding) = "1" // Remains unchanged 
+Single Selection Code (SRBK_variable_Selectencoding_Single) = "2"
+```
+
+Code:
+
+``` cpp
+// Consecutive choice example
+SRBK_Choice("Attack/Defend/", ""); 
+SRBK_Choice("Pursue/Retreat/", ""); 
+SRBK_Choice("Heal/Rest/", "notappend");
+```
+If options 1, 2, 1 are selected in order:
+
+``` text
+Selection Code (SRBK_variable_Selectencoding) = "12"
+Single Selection Code (SRBK_variable_Selectencoding_Single) = "1"
+```
+
+*Usage Scenario Explanation:*
+
+1.Use empty string `""`: 
+
+  Suitable for key choices in the main storyline that affect game endings and plot direction.
+
+2.Use `"notappend"`: 
+
+  Suitable for daily conversations, clothing choices, minor choices that don't affect the main plot, etc.
+
 **Compilation**:  
 *Environment Requirements*  
 - **Windows-only** program. Tested on:  
@@ -111,7 +225,8 @@ g++ main.cpp -o main.exe -I ./src
 *Controls*:  
 - Press Spacebar/Enter/Left Mouse Button to skip text or proceed  
 - Press 'A'/F6 to toggle auto-mode  
-- Hold Ctrl for fast-forward  
+- Hold Ctrl for fast-forward 
+- When choices are displayed, press number keys 1-9 to select the corresponding option.
 
 ## Notes  
 - **Windows-only**: Uses Windows API for key detection  
@@ -124,7 +239,7 @@ g++ main.cpp -o main.exe -I ./src
 ## Contribution  
 We warmly welcome contributions!  
 
-As a junior high school student (...), this is my first open-source project. Any help with improving the code would be immensely appreciated!  
+As a senior high school student (...), this is my first open-source project. Any help with improving the code would be immensely appreciated!  
 
 Please follow these steps:  
 1. Fork the repository  
@@ -138,9 +253,9 @@ Please follow these steps:
 
 ## Closing  
 This is my first GitHub project! Thank you for reading!
+Special thanks:Cheng
 
-
-# SRBK_Print
+# SRBK_Print（简体中文）
 ## 简介
 这是一个简单的终端程序，用于模拟Galgame对话输出，拥有逐字输出对话，跳过对话，自动对话等功能
 
@@ -392,3 +507,5 @@ g++ main.cpp -o main.exe -I ./src
 
 ## 结语
 这是我在Github发布的第一个项目！十分感谢能看到这里！
+
+特别鸣谢：澄

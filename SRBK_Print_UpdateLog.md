@@ -237,3 +237,12 @@ if(how != "notappend"){
 优化Readme文件
 ### 实现方式
 略，具体见Readme.md
+
+## 2026-1-18
+
+### 起因
+继续昨天的工作
+### 结果
+优化Readme文件
+### 实现方式
+略，具体见Readme.md
